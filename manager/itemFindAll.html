@@ -1,0 +1,59 @@
+<button type="button" class="btn btn-primary" onclick="MANAGER_ITEM.addItem()">新增商品</button>
+<table id="table">
+</table>
+<script>
+    $(function () {
+        $("#table").bootstrapTable({
+            url:'http://api.shop.com/manager/item/list',
+            method:'get',
+            striped:true,
+            pagination:true,
+            sidePagination: 'server',
+            queryParams:function (params) {
+                var temp = {
+                    limit : params.limit,
+                    offset: params.offset
+                }
+                return temp;
+            },
+            height:500,
+            pageNumber:1,
+            pageSize:5,
+            pageList:[5,10,15,20],
+            columns:[{
+                checkbox:true
+            },{
+                field:'title',
+                title:'标题'
+            },{
+                field:'subTitle',
+                title:'副标题'
+            },{
+                field:'price',
+                title:'价格'
+            },{
+                field:'discount',
+                title:'折扣'
+            },{
+                field:'cate1',
+                title:'一级'
+            },{
+                field:'cate2',
+                title:'二级'
+            },{
+                field:'store',
+                title:'库存',
+            },{
+                field:'itemId',
+                title:'操作',
+                formatter:function (value,row,index) {
+                    value = "'" + value + "'";
+                    return "<button type='button' class='btn btn-primary' onclick=\"MANAGER_ITEM.edit(" + value + ")\">修改</button>"
+                        +"<button type='button' class='btn btn-primary' onclick=\"MANAGER_ITEM.delete(" + value + ")\">删除</button>";
+                }
+            }]
+            }
+        );
+    });
+
+</script>

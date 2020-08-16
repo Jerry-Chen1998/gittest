@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="http://res.shop.com/javascript/bootstrap/css/bootstrap.css">
+    <script src="http://res.shop.com/javascript/jquery-3.4.1.min.js"></script>
+    <script src="http://res.shop.com/javascript/layer/layer.js"></script>
+    <script src="http://res.shop.com/javascript/common.js"></script>
+    <script src="http://res.shop.com/javascript/manager.js"></script>
+</head>
+<body>
+<div>
+    收货地址:XXXXXXXXXXXXXXX
+</div>
+<div>
+    支付方式
+</div>
+<table id="table" class="table">
+    <tr>
+        <th>NAME</th>
+        <th>PRICE</th>
+        <th>QUANTITY</th>
+        <th>小计</th>
+    </tr>
+</table>
+<span id="cacuBtn" class="btn btn-primary" onclick="createOrder()">生成订单</span>
+<script>
+
+    $(function () {
+        list();
+    })
+    
+    function list() {
+        var url = "http://api.shop.com/cart/list";
+        AJAX.postWithCookie(url, {}, function (result) {
+            if (result.code != "200") {
+                layer.alert(result.message);
+                return;
+            }
+            var arr = result.data;
+            var total = 0;
+            var itemTotal = 0;
+            for (var i = 0; i < arr.length; i++) {
+                var cartItem = arr[i];
+                itemTotal = cartItem.price * cartItem.quantity;
+                var s = "<tr>" +
+                    "<td>" + cartItem.name + "</td>" +
+                    "<td>" + cartItem.price + "</td>" +
+                    "<td>" + cartItem.quantity  + "</td>" +
+                    "<td>" + itemTotal  + "</td>" +
+                    "</tr>";
+                $("#table").append(s);
+                total += itemTotal;
+            }
+            $("#table").append("<tr><td colspan='4'>总价:" + total + "</td></tr>");
+        });
+    }
+    
+    function createOrder() {
+        var url = "http://api.shop.com/order/create";
+        AJAX.postWithCookie(url,{},function (result) {
+            if (result.code=='200'){
+                document.location.href = "http://order.shop.com/pay.html";
+            }
+        })
+    }
+    
+</script>
+</body>
+</html>

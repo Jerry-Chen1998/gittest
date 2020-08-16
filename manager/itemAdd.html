@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Title</title>
+   <script src="http://res.shop.com/javascript/manager.js"></script>
+</head>
+<body>
+<form id="myForm">
+   <div class="form-group mt50" >
+      一级:<br>
+      <select id="cate1" name="cate1" class="form-control" onchange="CATE.one(this)">
+      </select><br>
+      二级:<br>
+      <select id="cate2" name="cate2" class="form-control">
+      </select><br>
+      商品标题:<br>
+      <input style="" type="text" name="title" class="form-control"><br>
+      商品副标题:<br>
+      <input type="text" name="subTitle" class="form-control"><br>
+      商品价格:<br>
+      <input type="text" name="price" class="form-control"><br>
+      折扣:<br>
+      <input type="text" name="discount" class="form-control"><br>
+      库存:<br>
+      <input type="text" name="store" class="form-control"><br>
+      产品图片:<br>
+      <div id="itemImageEditor"></div>
+      <textarea id="images" name="images"style="display: none"></textarea>
+      产品简介:<br>
+      <div id="itemRemarkEditor"></div>
+      <textarea id="remark" name="remark" style="display: none"></textarea>
+      <br>
+<!--      <input type="reset" class="btn btn-info" value="取消"/>-->
+      <input type="button" class="btn btn-info" onclick="MANAGER_ITEM.saveItem()" value="保存"/>
+   </div>
+</form>
+
+<script>
+   $(function () {
+      CATE.parentId(0,"cate1");
+      // MANAGER_CATE.onCateLoad();
+      MANAGER_EDITOR.createItemImageEditor("#itemImageEditor");
+      MANAGER_EDITOR.createItemRemarkEditor("#itemRemarkEditor");
+   });
+</script>
+</div>
+</body>
+</html>

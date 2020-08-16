@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="http://res.shop.com/javascript/bootstrap/css/bootstrap.css">
+    <script src="http://res.shop.com/javascript/jquery-3.4.1.min.js"></script>
+    <script src="http://res.shop.com/javascript/layer/layer.js"></script>
+    <script src="http://res.shop.com/javascript/common.js"></script>
+</head>
+<body>
+<div id="mainContent">
+
+</div>
+<script>
+    $(function () {
+        var keyword = location.search.substring(1);
+        var url = "http://api.shop.com/search/all?keyword=" + keyword;
+        AJAX.get(url, {}, function (result) {
+            // alert(result.data);
+            var main = $("#mainContent");
+            main.html("");
+            var arr = result.data;
+            for (var i = 0; i < arr.length; i++) {
+                var item = arr[i];
+                var s = "<div style='float: left;margin: 10px'>";
+                alert(item.id);
+                s += "<a target='_blank' href='https://item.shop.com/"+item.id+".html'><img style='width: 200px' src='" + item.images + "'></a>";
+                s += "<br> <span> " + item.title + " </span>";
+                s += "<br> <span style='color: #ff0000'> " + item.price * item.discount / 100 + " </span>";
+                s += "<span> " + item.price + " </span>";
+                s += "</div>";
+                main.append(s);
+            }
+        });
+    });
+
+
+
+</script>
+</body>
+</html>

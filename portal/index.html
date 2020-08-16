@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input id="keyword" name="keyword" value="">
+<input type="button" value="搜索" onclick="s()">
+
+<script>
+    function s() {
+        var value = document.getElementById("keyword").value;
+        // document.location.href = "http://search.shop.com";
+        var url = "http://search.shop.com?" + value;
+        window.open(url, "_blank");
+    }
+</script>
+</body>
+</html>

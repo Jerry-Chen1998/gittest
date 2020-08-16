@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="http://res.shop.com/javascript/bootstrap/css/bootstrap.css">
+    <script src="http://res.shop.com/javascript/jquery-3.4.1.min.js"></script>
+    <script src="http://res.shop.com/javascript/layer/layer.js"></script>
+    <script src="http://res.shop.com/javascript/common.js"></script>
+    <script src="http://res.shop.com/javascript/manager.js"></script>
+</head>
+<body>
+
+<table id="table" class="table">
+    <tr>
+        <th>NAME</th>
+        <th>PRICE</th>
+        <th>QUANTITY</th>
+        <th></th>
+    </tr>
+</table>
+<span id="cacuBtn" class="btn btn-primary" onclick="caculate()">结算</span>
+
+<script>
+
+    $(function () {
+        var url = "http://api.shop.com/cart/list";
+        AJAX.postWithCookie(url, {}, function (result) {
+            if (result.code != "200") {
+                layer.alert(result.message);
+                return;
+            }
+            var arr = result.data;
+            if (arr.length == 0) {
+                $("#table").html("<tr><td>空空如也</td></tr>");
+                $("#cacuBtn").hide();
+                return;
+            }
+            for (var i = 0; i < arr.length; i++) {
+                var cartItem = arr[i];
+                var s = "<tr id='tr_" + cartItem.id + "'>" +
+                    "<td>" + cartItem.name + "</td>" +
+                    "<td>" + cartItem.price + "</td>" +
+                    "<td>" +
+                    "<span class=\"btn btn-default\" onclick=\"CART.update(-1,'" + cartItem.id + "')\">--</span>" +
+                    "<input class='myabc' id='" + cartItem.id + "'  value='" + cartItem.quantity + "'>" +
+                    "<span class=\"btn btn-default\" onclick=\"CART.update(1,'" + cartItem.id + "')\">++</span>" +
+                    "<span onclick=\"CART.delete('" + cartItem.id + "')\">移除</span>" +
+                    "</td>" +
+                    "<td></td>" +
+                    "</tr>";
+                $("#table").append(s);
+            }
+        });
+    });
+
+    function caculate() {
+        document.location.href = "http://order.shop.com";
+    }
+
+
+</script>
+</body>
+</html>

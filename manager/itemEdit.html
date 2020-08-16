@@ -1,0 +1,33 @@
+<form id="myForm2">
+    <div class="form-group mt50">
+        <h4>类别1:</h4>
+        <select id="cate1" name="cate1" class="form-control" onchange="CATE.one(this)">
+        </select>
+        <h4>类别2:</h4>
+        <select id="cate2" name="cate2" class="form-control"></select>
+        <h4>标题:</h4>
+        <input type="text" name="title" class="form-control">
+        <h4>副标题:</h4>
+        <input type="text" name="subTitle" class="form-control">
+        <h4>价格:</h4>
+        <input type="text" name="price" class="form-control">
+        <h4>折扣:</h4>
+        <input type="text" name="discount" class="form-control">
+        <h4>库存:</h4>
+        <input type="text" name="store" class="form-control">
+        <h4>简介:</h4>
+        <div id="itemRemarkEditor"></div>
+        <textarea id="remark" name="remark" style="display:none"></textarea>
+        <br>
+        <input type="button" class="btn btn-info" value="提交" onclick="MANAGER_ITEM.update()"/>
+        <input type="reset" class="btn btn-info" value="清空"/>
+        <input type="hidden" id="id" name="id" value=""/>
+    </div>
+</form>
+<script>
+    $(function () {
+        CATE.parentId(0, "cate1");
+        MANAGER_EDITOR.createItemRemarkEditor("#itemRemarkEditor");
+        MANAGER_ITEM.editData();
+    });
+</script>
